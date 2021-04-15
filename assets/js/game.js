@@ -70,12 +70,12 @@ var enemyAttack = 12;
 //function expression assigns function to variable with parameter
 
 //PARAMETER - Parameters often get confused with arguments because their syntax is similar. The main distinction between them is their purpose in the function. 
-var fight = function(enemyRobot) {
+var fight = function(enemyName) {
     // Alert players that they are starting the round
     // window.alert("Welcome to Robot Gladiators!");
     while(playerHealth > 0 && enemyHealth > 0) {
         // ask player if they'd like to fight or run
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle?");
+        var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
          // if player picks "skip" confirm and then stop the loop
         if (promptFight === "skip" || promptFight === "SKIP") {
@@ -90,21 +90,18 @@ var fight = function(enemyRobot) {
                 console.log("playerMoney", playerMoney);
                 break;
             }
-            // // if no (false), ask question again by running fight() again "FALSY"
-            // else {
-            // fight();
          }
 
         // // if player choses to fight, then fight (conditional statement)
         // if (promptFight === "fight" || promptFight === "FIGHT") {
             // remove enemy's health by subtracting the amount set in the playerAttack variable
             enemyHealth = enemyHealth - playerAttack;
-            console.log(playerName + " attacked " + enemyRobot + ". " + enemyRobot + " now has " + enemyHealth + " health remaining.");
+            console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
         
             // check enemy's health
             if (enemyHealth <= 0) {
                 // window.alert(enemyRobot + " has died!");
-                console.log(enemyRobot + " has died!");
+                console.log(enemyName + " has died!");
 
                 // award player money for winning
                 playerMoney = playerMoney + 20;
@@ -112,12 +109,12 @@ var fight = function(enemyRobot) {
                  // leave while() loop since enemy is dead
                 break;
             } else {
-                console.log(enemyRobot + " still has " + enemyHealth + " health left.");
+                console.log(enemyName + " still has " + enemyHealth + " health left.");
             }
         
             // remove player's health by subtracting the amount set in the enemyAttack variable
             playerHealth = playerHealth - enemyAttack;
-            console.log(enemyRobot + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
+            console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
         
             // check player's health
             if (playerHealth <= 0) {
@@ -132,7 +129,7 @@ var fight = function(enemyRobot) {
 
 // fight();
 //Loop through array to fight with each enemy robot
-for (var i = 0; i < enemyNames.length - 1; i++) {
+for (var i = 0; i < enemyNames.length; i++) {
     if (playerHealth > 0) {
         // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
         window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
