@@ -2,6 +2,8 @@
     ROBOT GLADIATORS JAVASCRIPT CODE
 */
 
+// MVP - Minimum Viable Product
+
 // //user input
 // //Call window object's "prompt" method using "dot notation"
 // //Store in variable playerName, which stores values in the browser's memory
@@ -9,9 +11,9 @@
 // var playerName = window.prompt("What is your robot's name?");
 // console.log(playerName);
 
-// console.log("This logs a string, good for leaving yourself a message");
-// // this will do math and log 20
-// console.log(10 + 10);
+console.log("Starting game");
+// this will do math and log 20
+console.log(10 + 10);
 
 // //string concatenation
 // console.log("Our robot's name is " + playerName);
@@ -66,6 +68,7 @@ var enemyAttack = 12;
 //   * Fight all enemy robots
 //   * Defeat each enemy robot
 // "LOSE" - Player robot's health is zero or less
+// "SHOP" - After defeating an enemy robot, allow player the choice to 'REFILL' their health, 'UPGRADE' their attack, or 'LEAVE' the store
 
 //function expression assigns function to variable with parameter
 
@@ -84,7 +87,7 @@ var fight = function(enemyName) {
         
             // if yes (true), leave fight "TRUTHY"
             if (confirmSkip) {
-                console.log(playerName + " has decided to skip this fight. Goodbye!");
+                window.alert(playerName + " has decided to skip this fight. Goodbye!");
                 // subtract money from playerMoney for skipping
                 playerMoney = playerMoney - 10;
                 console.log("playerMoney", playerMoney);
@@ -92,62 +95,115 @@ var fight = function(enemyName) {
             }
          }
 
-        // // if player choses to fight, then fight (conditional statement)
-        // if (promptFight === "fight" || promptFight === "FIGHT") {
-            // remove enemy's health by subtracting the amount set in the playerAttack variable
-            enemyHealth = enemyHealth - playerAttack;
-            console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
-        
-            // check enemy's health
-            if (enemyHealth <= 0) {
-                // window.alert(enemyRobot + " has died!");
-                console.log(enemyName + " has died!");
+        // remove enemy's health by subtracting the amount set in the playerAttack variable
+        enemyHealth = enemyHealth - playerAttack;
+        console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
+    
+        // check enemy's health
+        if (enemyHealth <= 0) {
+            // window.alert(enemyRobot + " has died!");
+            window.alert(enemyName + " has died!");
 
-                // award player money for winning
-                playerMoney = playerMoney + 20;
+            // award player money for winning
+            playerMoney = playerMoney + 20;
 
-                 // leave while() loop since enemy is dead
-                break;
-            } else {
-                console.log(enemyName + " still has " + enemyHealth + " health left.");
-            }
-        
-            // remove player's health by subtracting the amount set in the enemyAttack variable
-            playerHealth = playerHealth - enemyAttack;
-            console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
-        
-            // check player's health
-            if (playerHealth <= 0) {
-                console.log(playerName + " has died!");
-                // leave while() loop if player is dead
-                break;
-            } else {
-                console.log(playerName + " still has " + playerHealth + " health left.");
-            }
+                // leave while() loop since enemy is dead
+            break;
+        } else {
+            window.alert(enemyName + " still has " + enemyHealth + " health left.");
+        }
+    
+        // remove player's health by subtracting the amount set in the enemyAttack variable
+        playerHealth = playerHealth - enemyAttack;
+        console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
+    
+        // check player's health
+        if (playerHealth <= 0) {
+            window.alert(playerName + " has died!");
+            // leave while() loop if player is dead
+            break;
+        } else {
+            window.alert(playerName + " still has " + playerHealth + " health left.");
+        }
     }
   };
 
-// fight();
-//Loop through array to fight with each enemy robot
-for (var i = 0; i < enemyNames.length; i++) {
-    if (playerHealth > 0) {
-        // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
+// function to start a new game
+var startGame = function() {
+
+    // reset player stats
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
+
+    for (var i = 0; i < enemyNames.length; i++) {
+      if (playerHealth > 0) {
         window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+        // console.log("Starting round " + (i + 1));
 
         // pick new enemy to fight based on the index of the enemyNames array
+        //local scope
         var pickedEnemyName = enemyNames[i];
-
+  
         // reset enemyHealth before starting new fight
         enemyHealth = 50;
-
+  
         // use debugger to pause script from running and check what's going on at that moment in the code
         // debugger;
 
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         fight(pickedEnemyName);
-      }  
+
+        // // if player is still alive and we're not at the last enemy in the array
+        // if (playerHealth > 0 && i < enemyNames.length - 1) {
+        //     // ask if player wants to use the store before next round
+        //     var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+        
+        //     // if yes, take them to the store() function
+        //     if (storeConfirm) {
+        //     shop();
+        //     }
+        // }
+      }
       else {
-          window.alert("You have lost your robot in battle! Game Over!");
-          break;
-      } 
+        window.alert("You have lost your robot in battle! Game Over!");
+        break;
+      }
+    }
+
+    // After loop ends, player is either out of health or enemies to fight
+    endGame();
+  };
+
+// function to end game; FUNCTION EXPRESSION (vs Function Declaration which doesn't use variable)  
+// REM: Hoisting (Javascript's default behavior of moving declarations to the top of the code) Function declarations can be called before they're declared
+// BEST PRACTICE: Stick with Function Expression, as it enforces more structure to code base
+
+var endGame = function() {
+    window.alert("The game has now ended. Let's see how you did!");
+    // if player is still alive, player wins!
+    if (playerHealth > 0) {
+        window.alert("Great job, you've survived the game! You now have a score of " + playerMoney + ".");
+    }
+    else {
+        window.alert("You've lost your robot in battle. Game Over!");
+    }
+
+    // local scope variable
+    var playAgainConfirm = window.confirm("Would you like to play again?");
+
+    if (playAgainConfirm) {
+        // restart the game
+        startGame();
+    }
+    else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+
 }
+
+// Start the game when the page loads
+console.log("Hello Chuck");
+        // use debugger to pause script from running and check what's going on at that moment in the code
+        // debugger;
+startGame();
