@@ -11,9 +11,11 @@
 // var playerName = window.prompt("What is your robot's name?");
 // console.log(playerName);
 
-console.log("Starting game");
-// this will do math and log 20
-console.log(10 + 10);
+// Return random number between 0 and 1 multiplied by (max - min + 1) then add min, so we end up with number between min and max
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+}
 
 // //string concatenation
 // console.log("Our robot's name is " + playerName);
@@ -218,12 +220,6 @@ var shop = function() {
     }
 }
 
-// Return random number between 0 and 1 multiplied by (max - min + 1) then add min, so we end up with number between min and max
-var randomNumber = function(min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
-    return value;
-}
-
 // Create Player Object with properties for name, health, attack and money (use dot.notation to retrieve: playerInfo.name)
 // Objects can consist of properties and methods (functions)
 // propertyname: propertyvalue (name value pairs)
@@ -243,7 +239,7 @@ var playerInfo = {
             this.money -+ 7;
         }
         else {
-            window.alert("You don't have enought money!");
+            window.alert("You don't have enough money!");
         }
     },
     upgradeAttack: function() {
@@ -252,7 +248,7 @@ var playerInfo = {
             this.money -+ 7;
         }
         else {
-            window.alert("You don't have enought money!");
+            window.alert("You don't have enough money!");
         }
     }
 };
@@ -283,8 +279,12 @@ var enemyInfo = [
 ];
 
 
-// Start the game when the page loads
-console.log("Hello Chuck");
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
         // use debugger to pause script from running and check what's going on at that moment in the code
         // debugger;
-startGame();
+
+// Start the game when the page loads
+ startGame();
