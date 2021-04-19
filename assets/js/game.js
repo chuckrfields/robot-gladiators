@@ -61,6 +61,36 @@ var randomNumber = function(min, max) {
 // "LOSE" - Player robot's health is zero or less
 // "SHOP" - After defeating an enemy robot, allow player the choice to 'REFILL' their health, 'UPGRADE' their attack, or 'LEAVE' the store
 
+var fightOrSkip = function() {
+    // ask player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+
+    // Enter the conditional recursive function call here!
+    while (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again.");
+        return fightOrSkip();
+    }
+
+    promptFight = promptFight.toLowerCase();
+
+    // if player picks "skip" confirm and then stop the loop
+    if (promptFight === "skip") {
+    // confirm player wants to skip
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+    // if yes (true), leave fight
+    if (confirmSkip) {
+        window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+        // subtract money from playerMoney for skipping
+        playerInfo.playerMoney = playerInfo.money - 10;
+        return true;
+        // shop();
+    }
+    }
+
+    return false;
+}
+
 //function expression assigns function to variable with parameter
 
 //PARAMETER - Parameters often get confused with arguments because their syntax is similar. The main distinction between them is their purpose in the function. 
@@ -69,22 +99,10 @@ var fight = function(enemy) {
     // window.alert("Welcome to Robot Gladiators!");
     while(playerInfo.health > 0 && enemy.health > 0) {
         // ask player if they'd like to fight or run
-        var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
-
-         // if player picks "skip" confirm and then stop the loop
-        if (promptFight === "skip" || promptFight === "SKIP") {
-            // confirm player wants to skip
-            var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-        
-            // if yes (true), leave fight "TRUTHY"
-            if (confirmSkip) {
-                window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-                // subtract money from playerMoney for skipping
-                playerMoney = Math.max(0, playerInfo.money - 10);
-                console.log("playerMoney", playerInfo.money);
-                break;
-            }
-         }
+        if (fightOrSkip()) {
+            // if true, leave fight by breaking loop
+            break;
+        }
 
          // generate random damage value based on player's attack power
         var damage = randomNumber(playerInfo.attack -3, playerInfo.attack);
