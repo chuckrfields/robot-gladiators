@@ -224,6 +224,29 @@ var startGame = function() {
 
 var endGame = function() {
     window.alert("The game has now ended. Let's see how you did!");
+
+    //Get current high score (if any)
+    var currentHighScore = localStorage.getItem("RobotGladiatorsHighScore");
+    // if (currentHighScore === null) {
+    //     currentHighScore = 0;
+    //     alert("You set the high score! Your score is " + playerInfo.money );
+    // }
+
+    //shorthand: Short Circuit Conditional Statement
+    /*
+    The code means that if the highScore value is falsy (for example, null), then assign zero to highScore. 
+    If not, retain whatever value is currently stored in highScore.
+    */
+    currentHighScore = currentHighScore || 0;
+    
+    if (parseInt(currentHighScore) < playerInfo.money ) {
+        localStorage.setItem("RobotGladiatorsHighScore", currentHighScore);
+        alert("You beat the high score! Your score is " + playerInfo.money );
+    }
+    else {
+        alert("You did not beat the high score. Score to beat: " + currentHighScore);
+    }
+
     // if player is still alive, player wins!
     if (playerInfo.health > 0) {
         window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
