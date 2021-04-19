@@ -75,17 +75,17 @@ var fightOrSkip = function() {
 
     // if player picks "skip" confirm and then stop the loop
     if (promptFight === "skip") {
-    // confirm player wants to skip
-    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+        // confirm player wants to skip
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
-    // if yes (true), leave fight
-    if (confirmSkip) {
-        window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-        // subtract money from playerMoney for skipping
-        playerInfo.playerMoney = playerInfo.money - 10;
-        return true;
-        // shop();
-    }
+        // if yes (true), leave fight
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+            // subtract money from playerMoney for skipping
+            playerInfo.playerMoney = playerInfo.money - 10;
+            
+            return true;
+        }
     }
 
     return false;
@@ -239,21 +239,22 @@ var endGame = function() {
     */
     currentHighScore = currentHighScore || 0;
     
-    if (parseInt(currentHighScore) < playerInfo.money ) {
-        localStorage.setItem("RobotGladiatorsHighScore", currentHighScore);
+    if (playerInfo.money > currentHighScore) {
+        localStorage.setItem("RobotGladiatorsHighScore", playerInfo.money);
+        localStorage.setItem("RobotGladiatorsPlayerName", playerInfo.name);
         alert("You beat the high score! Your score is " + playerInfo.money );
     }
     else {
         alert("You did not beat the high score. Score to beat: " + currentHighScore);
     }
 
-    // if player is still alive, player wins!
-    if (playerInfo.health > 0) {
-        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
-    }
-    else {
-        window.alert("You've lost your robot in battle. Game Over!");
-    }
+    // // if player is still alive, player wins!
+    // if (playerInfo.health > 0) {
+    //     window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    // }
+    // else {
+    //     window.alert("You've lost your robot in battle. Game Over!");
+    // }
 
     // local scope variable
     var playAgainConfirm = window.confirm("Would you like to play again?");
@@ -359,10 +360,10 @@ var enemyInfo = [
 ];
 
 
-console.log(enemyInfo);
-console.log(enemyInfo[0]);
-console.log(enemyInfo[0].name);
-console.log(enemyInfo[0]['attack']);
+// console.log(enemyInfo);
+// console.log(enemyInfo[0]);
+// console.log(enemyInfo[0].name);
+// console.log(enemyInfo[0]['attack']);
         // use debugger to pause script from running and check what's going on at that moment in the code
         // debugger;
 
