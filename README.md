@@ -1,3 +1,13 @@
 # The ROBOT GLADIATORS game
 
-## An awesome Javascript challenge where you battle your robot against an enemy robot army!
+## A JavaScript challenge where you battle your robot against an enemy robot army!
+
+## Built With
+* HTML
+* CSS
+* JavaScript
+
+## Contribution
+Made with ❤️ by Chuck Fields
+
+### ©️2021  
